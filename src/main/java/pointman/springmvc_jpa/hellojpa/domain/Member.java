@@ -1,4 +1,4 @@
-package pointman.springmvc_jpa.hellojpa;
+package pointman.springmvc_jpa.hellojpa.domain;
 
 
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package pointman.springmvc_jpa.hellojpa.service.serviceImpl;
 
 import org.springframework.stereotype.Service;
-import pointman.springmvc_jpa.hellojpa.Member;
+import pointman.springmvc_jpa.hellojpa.domain.Member;
 import pointman.springmvc_jpa.hellojpa.service.JpaService;
 
 import javax.persistence.EntityManager;
