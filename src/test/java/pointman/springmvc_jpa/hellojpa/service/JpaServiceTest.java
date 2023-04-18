@@ -14,14 +14,8 @@ import javax.persistence.EntityManager;
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class JpaServiceTest {
-    EntityManager em;
+    @Autowired
     MemberRepository memberRepository;
-
-    public JpaServiceTest(EntityManager em, MemberRepository memberRepository) {
-        this.em = em;
-        this.memberRepository =  new MemberRepositoryImpl(em);;
-    }
-
     @Test
     @Commit
     void save(){
