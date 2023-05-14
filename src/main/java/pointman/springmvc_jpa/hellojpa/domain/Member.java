@@ -17,6 +17,7 @@ import java.util.Date;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "MEMBER_ID")
     private Long id;
     //@Column(insertable = false) 데이터베이스에 insert 할건지 여부
     //@Column(updatable = false) ) 데이터베이스에 update 할건지 여부
@@ -24,8 +25,14 @@ public class Member {
     //@Column(columnDefinition = "varchar(100) default 'EMPTY'") 컬럼 정보를 직접 설정
     //@Column(precision = 10,scale = 5) precision는 소수점 포함 전체 자리수 scale은 소수점 자리수 dobule, float타입 적용안됨
     private BigDecimal bigNum;
-    @Column(name = "user_name")
+    @Column(name = "USER_NAME")
     private String name; // 저장할 필드에 final 사용불가
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private  Team team;
+
     @Column(unique = true,length = 11)
     private String phone; //유니크 및 길이 설정
     /**

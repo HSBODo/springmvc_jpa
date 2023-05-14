@@ -6,20 +6,32 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 import pointman.springmvc_jpa.hellojpa.domain.Member;
+import pointman.springmvc_jpa.hellojpa.domain.Team;
+
+import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Slf4j
+@Transactional
 class MemberRepositoryTest {
-
+    @Autowired
+    EntityManager em;
     @Autowired
     MemberRepository memberRepository;
     @Test
     @Commit
     void save(){
+        Team team = new Team();
+        team.setName("TeamA");
+        em.persist(team);
         Member member =new Member();
-        member.setName("테스트 ");
+        member.setName("테스트1");
+        member.setTeam(team);
         Member savedMember = memberRepository.save(member);
         Assertions.assertThat(savedMember).isEqualTo(member);
     }
@@ -27,9 +39,15 @@ class MemberRepositoryTest {
     @Test
     @Commit
     void find() {
-        Long id = 1L;
+        Long id = 4L;
         Member findMember = memberRepository.find(id);
-        Assertions.assertThat(findMember.getId()).isEqualTo(1L);
+        Team findTeam = findMember.getTeam();
+        List<Member> members = findTeam.getMembers();
+
+        for (Member member : members) {
+            log.info("member={}",member.getId());
+        }
+        Assertions.assertThat(findMember.getTeam()).isEqualTo(findTeam);
     }
 
     @Test
